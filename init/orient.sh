@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Check variables
-if [ "$VERSION" = "NOTSET" ]; then echo "You must set an OrientDB Version"; exit; fi
-
 # Export variables
 export ORIENTDB_HOME='/opt/orient'
 export ORIENTDB_VERSION=${VERSION}
@@ -10,4 +7,4 @@ export ORIENTDB_NODE_NAME=$(hostname)
 
 curl -o orientdb.tar.gz https://abcum.s3.amazonaws.com/orientdb/orientdb-community-${VERSION}.tar.gz && mkdir -p /opt/orient && tar -zxvf orientdb.tar.gz --strip-components=1 --directory /opt/orient && rm -rf orientdb.tar.gz && rm -rf /opt/orient/config && mv /opt/conf /opt/orient/config
 
-java -Xmx${MEM} -Dhazelcast.ip=${IP} -Dhazelcast.tcp=${TCP} -Dhazelcast.aws=${AWS} -Dhazelcast.access=${AWS_ACCESS_KEY} -Dhazelcast.secret=${AWS_SECRET_KEY} -Dhazelcast.region=${AWS_REGION} -Dhazelcast.group=${AWS_SECURITY_GROUP} -Dhazelcast.members=${MEMBERS} -Djna.nosys=true -XX:+HeapDumpOnOutOfMemoryError -Djava.awt.headless=true -Dfile.encoding=UTF8 -Drhino.opt.level=9 -Ddistributed=true -Djava.util.logging.config.file="${ORIENTDB_HOME}/config/orientdb.properties" -Dorientdb.config.file="${ORIENTDB_HOME}/config/orientdb.xml" -Dorientdb.www.path="${ORIENTDB_HOME}/www" -cp "${ORIENTDB_HOME}/lib/orientdb-server-${ORIENTDB_VERSION}.jar:${ORIENTDB_HOME}/lib/*" $* com.orientechnologies.orient.server.OServerMain
+java -Xmx${MEM} -Dhazelcast.ip=${IP} -Dhazelcast.tcp=false -Dhazelcast.aws=true -Dhazelcast.access=${AWS_ACCESS_KEY} -Dhazelcast.secret=${AWS_SECRET_KEY} -Dhazelcast.region=${AWS_REGION} -Dhazelcast.group=${AWS_SECURITY_GROUP} -Djna.nosys=true -XX:+HeapDumpOnOutOfMemoryError -Djava.awt.headless=true -Dfile.encoding=UTF8 -Drhino.opt.level=9 -Ddistributed=true -Djava.util.logging.config.file="${ORIENTDB_HOME}/config/orientdb.properties" -Dorientdb.config.file="${ORIENTDB_HOME}/config/orientdb.xml" -Dorientdb.www.path="${ORIENTDB_HOME}/www" -cp "${ORIENTDB_HOME}/lib/orientdb-server-${ORIENTDB_VERSION}.jar:${ORIENTDB_HOME}/lib/*" $* com.orientechnologies.orient.server.OServerMain
