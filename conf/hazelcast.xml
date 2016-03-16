@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hazelcast xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-3.0.xsd" xmlns="http://www.hazelcast.com/schema/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<hazelcast
+    xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-3.0.xsd"
+    xmlns="http://www.hazelcast.com/schema/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <properties>
         <property name="hazelcast.logging.type">jdk</property>
@@ -8,6 +10,8 @@
         <property name="hazelcast.memcache.enabled">false</property>
         <property name="hazelcast.health.monitoring.level">OFF</property>
         <property name="hazelcast.local.localAddress">${hazelcast.ip}</property>
+        <property name="hazelcast.socket.server.bind.any">false</property>
+        <property name="hazelcast.socket.client.bind">false</property>
         <property name="hazelcast.max.no.heartbeat.seconds">15</property>
         <property name="hazelcast.max.no.master.confirmation.seconds">30</property>
         <property name="hazelcast.master.confirmation.interval.seconds">15</property>
@@ -32,6 +36,9 @@
             </tcp-ip>
             <aws enabled="false"></aws>
         </join>
+        <interfaces enabled="false">
+            <interface>172.17.0.*</interface>
+        </interfaces>
     </network>
 
     <executor-service>
