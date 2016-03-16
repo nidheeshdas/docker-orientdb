@@ -27,13 +27,10 @@
         </outbound-ports>
         <join>
             <multicast enabled="false"></multicast>
-            <tcp-ip enabled="false"></tcp-ip>
-            <aws enabled="true">
-                <access-key>${hazelcast.access}</access-key>
-                <secret-key>${hazelcast.secret}</secret-key>
-                <region>${hazelcast.region}</region>
-                <security-group-name>${hazelcast.group}</security-group-name>
-            </aws>
+            <tcp-ip enabled="true">
+                <members>${hazelcast.ourip}</members>
+            </tcp-ip>
+            <aws enabled="false"></aws>
         </join>
     </network>
 
